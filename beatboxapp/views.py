@@ -168,6 +168,7 @@ def promus(request,r):
         #e["about_blog"] = "São resultados da pesquisa de &lt;bold&gt;"+str(r)+"&lt;bold&gt;"
         return render(request,"musics.html",e)
 def mainpage(request):
+    print(request.COOKIES)
     if request.method == "POST":
         return render(request,"procura.html",datat(r=request.POST["procurar"]))
     else:
@@ -393,7 +394,10 @@ def post_music(request,slug):
                 e["user"] = user
                 return render(request,"post_music.html",e)
         else:
-            return render(request,"post_music.html",{"user":user})
+            r = request.META.get("HTTP_HOST")
+            t = str(r)+"/myaccount/"+str(user.slug)
+            r = str(r)+"/myaccount/"+str(user.slug)+"/post/"
+            return render(request,"post_music.html",{"user":user,"url":r,'url2':t})
                 
 def criar_loja(request,slug):
     user = cantor.objects.filter(slug=slug).first()
