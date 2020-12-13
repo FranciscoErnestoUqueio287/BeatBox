@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html lang="pt">
+{% load static %}  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<meta name="description" content="">
+   <title>{{Ajuda_em_Beat}}</title>
+
+
+<link href={% static "bootstrap.min.css" %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  
+</head>
+  <body>
+    <div class="container">
+  <div class="jumbotron mt-3">
+    <h1>{{ajuda.tema}}</h1>
+    <p class="lead">{{ajuda.dica}}.</p>
+    
+<a class="btn btn-lg btn-primary" href="{{ajuda.link}}" role="button">{{link_para}}</a>
+  </div>
+</div></html>

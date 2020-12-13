@@ -1,0 +1,31 @@
+<!DOCTYPE>
+{% load static %}
+{% load string %}
+<head>
+<link href={% static "bootstrap.min.css" %} rel="stylesheet"><link href={% static "dashboard.css" %} rel="stylesheet"></head><body>
+<div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              
+<th>Contacto</th>
+              <th>Musicas</th>
+              <th>Gostos</th>
+              <th>Pais</th>
+<th>Mais</th>
+            </tr>
+          </thead>
+   {% for x in artistas %}       <tbody>
+            <tr>
+              <td>{{x.pr_nome}} {{x.ul_nome}}</td>
+              <td>{{x.contacto}}</td>
+              <td>{{x.id|qumus}}</td>
+              <td>{{x.gostos}}</td>
+              <td>{{x.pais}}</td>
+<td><a href="{% url 'artista_see' x.slug %}">Ver mais</a></td>
+            </tr>
+ </tbody>
+  {% endfor %}       </table></div>
+</body>
+</html>

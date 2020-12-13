@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html lang="pt">{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<meta name="description" content="">
+    <title>{{title}}</title>
+
+    
+<link href={% static "bootstrap.min.css" %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+ 
+<link href={% static "dashboard.css" %} rel="stylesheet">
+  </head>
+  <body>
+    <form method="post"><nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">{{user}} </a>
+<input class="form-control form-control-dark w-100" type="text" name="procurar" placeholder="{{Procurar}}" aria-label="Search">
+  
+<ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+ <button type="submit" style="background-color:#007bFF;color:#fff8f8" class="btn btn-sm btn-outline-secondary">{{Procurar_button}} </button>   </li>
+  </ul>
+</nav>{% csrf_token %}
+
+</form><div class="container-fluid">
+  
+<div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+       
+ <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="my_musics/">
+              
+<span data-feather="home"></span>{{my_music}}<span class="sr-only"></span>
+            </a>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my_info/">
+              <span data-feather="file"></span>{{Minha_info}}
+</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my_studios/">
+              <span data-feather="shopping-cart"></span>{{Meus_studios}}</a>
+          </li>
+          
+<li class="nav-item">
+            <a class="nav-link" href="my_stores/">
+             
+ <span data-feather="users"></span>
+{{Minhas_lojas}}</a>
+          </li>
+<li class="nav-item">
+            <a class="nav-link" href={% url "criar_loja" user.slug %} >
+             
+ <span data-feather="users"></span>
+{{Create_loja}}</a>
+          </li>
+<li class="nav-item">
+            <a class="nav-link" href={% url "criar_studio" user.slug %}>
+             
+ <span data-feather="users"></span>
+{{Create_studio}}</a>
+          </li>
+<li class="nav-item">
+            <a class="nav-link" href={% url "publicar_uma_musica" user.slug %}>
+             
+ <span data-feather="users"></span>
+{{P_music}}</a>
+          </li></ul>
+
+        
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>{{Notificacoes}}</span>
+ 
+        </h6>
+        
+<ul class="nav flex-column mb-2">{% if notificacoes|length > 0 %}{% for x in notificacoes %}<li class="nav-item">
+            <a class="nav-link" href="not{{x.id}}/">
+              <span data-feather="file-text"></span>{{x|truncatechars:15}}</a>
+          
+</li>
+{% endfor %} {% endif %}        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">{{welc}} {{user}}</h1>
+        
+<div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+           <a href="sha/"> <button type="button" class="btn btn-sm btn-outline-secondary">{{Share}}</button>
+   </a>         
+<button type="button" class="btn btn-sm btn-outline-secondary">{{Doar}}</button>
+          </div>
+ 
+        </div>
+      </div>
+
+      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+      
+{% if my_musics|length > 0 %}<h2>{{my_music}}</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>{{identifier}}</th>
+              
+<th>{{titulo}}</th>
+              <th>{{tipo}}</th>
+              <th>{{gostos}}</th>
+              <th>{{artistas}}</th>
+            </tr>
+          </thead>
+   {% for x in my_musics %}       <tbody>
+            <tr>
+              <td>{{x.id}}</td>
+              <td>{{x.titulo}}</td>
+              <td>{{x.tipo}}</td>
+              <td>{{x.gostos}}</td>
+              <td>{{x.artistas|truncatechars:15}}</td>
+            </tr>
+ </tbody>
+  {% endfor %}       </table>
+      {% endif %}</div>
+    </main>
+  </div>
+</div></body>
+</html>

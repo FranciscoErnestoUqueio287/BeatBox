@@ -1,0 +1,8 @@
+
+h2{color:red;margin-left:25%;margin-right:25%;width:50%}
+
+.foob{background-color:rgba(250,10,10,1);color:#ffffff;width:30%;height:15;border-radius:15px 50px; font-family:Lucida Handwriting} 
+
+.foob:hover{background-color:yellow;color:red} .foobu{box-shadow: inset 8px 8px 8px #cbced1,inset -8px -8px 8px #fff;background-color:rgba(10,10,10,0.1);color:#ffffff;width:50%;margin-left:25%; margin-right:25%;height:15;border-radius:15px 50px; font-family:Lucida Calligraphy} 
+.foobu:hover{background-color:#101010;color:red}
+body{background-color:#ecf0f3}

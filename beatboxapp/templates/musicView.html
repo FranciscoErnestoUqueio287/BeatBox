@@ -1,0 +1,49 @@
+﻿<!doctype html>
+<html lang="pt">
+ {% load static %} {% load string %} <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+<title>{{music.titulo}}</title>
+
+<link href={% static "bootstrap.min.css" %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+     <link href={% static "navbar-top.css" %} rel="stylesheet" >
+  </head>
+ 
+ <body {% if music.imagem|st > 0 %} style="background-image:url('{{music.imagem.url}}')" {% endif %}>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <a class="navbar-brand" href="{% url 'Pagina_inicial' %}">{{Pagina_inicial}}</a>
+ {% if like == "yes" %}<a class="navbar-brand" href="#">GOSTASTE</a> {% else %} <a class="navbar-brand" href="{% url 'liking_music' music.slug %}">GOSTAR</a> {% endif %} <a class="navbar-brand" href="{% url 'blaming_music' music.slug %}">Denunciar</a>
+<b style="color:#007bff">Link da musica</b><input type="text" value="{{origin}}{% url 'Vendo_musica_especifica' pr=music.slug %}">
+
+<span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    
+  </div>
+</nav>
+
+<main role="main" class="container">
+  <div class="jumbotron">
+    
+<h1>{{music.artistas}}:{{music.titulo}}</h1>
+<br> {% if music.audio|st > 0  %} <audio src="{% url 'see' %}?name={{music.audio}}" controls></audio> <a href="{% url 'down' %}?name={{music.audio}}">Baixar audio</a> {% endif %}  {% if music.video|st > 0  %} <video src="{% url 'see' %}?name={{music.video}}" controls></video> <a href="{% url 'down' %}?name={{music.video}}">Baixar video</a> {% endif %}     <p class="lead">{{music.sobre}}.</p>
+ </div>
+</main></html>

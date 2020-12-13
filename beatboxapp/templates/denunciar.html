@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="pt"> {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<meta name="description" content=""> <title>{{title}}</title>
+<link href={% static "bootstrap.min.css" %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+ <link href={% static "floating-labels.css" %} rel="stylesheet">
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data" class="form-signin">
+  
+<div class="text-center mb-4">
+    
+<img class="mb-4" src={% static "favicon.png" %} alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Denuncia</h1>
+    
+{% csrf_token %}<p>Ao denunciar no Beat-Box a sua identidade vai ser mantida em segredo tal como a denuncia</code> </p>
+  </div>
+
+  <div class="form-label-group">
+    <input type="textarea" id="inputEmail" value="{{sobre}}" class="form-control" name="sobre" placeholder="sobre" required autofocus>
+    <label for="inputEmail">Sobre a denuncia</label>
+  </div>
+
+    
+  <div class="checkbox mb-3">
+    
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Denunciar</button>
+  <p class="mt-5 mb-3 text-muted text-center">Beat-Box blog</p>
+</form>
+</body>
+</html>

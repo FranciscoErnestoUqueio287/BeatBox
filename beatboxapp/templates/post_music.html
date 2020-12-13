@@ -1,0 +1,105 @@
+﻿<!doctype html>
+<html lang="pt">
+ {% load static %}  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<meta name="description" content="">
+   <title>Publicar a minha musica</title>
+
+    
+
+<link href={% static 'bootstrap.min.css' %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+ <link href={% static "floating-labels.css" %} rel="stylesheet">
+  </head>
+  <body>
+    
+
+<br>
+<form class="form-signin" method="post" enctype="multipart/form-data">
+ {% csrf_token %}
+ <div class="text-center mb-4">
+  
+ 
+   <h1 class="h3 mb-3 font-weight-normal">Preencha o formulario e publique a sua musica</h1>
+   
+ <p>{% if form.errors %} {{form.errors}} {% endif %}{{erro|default:"Se algo falhar venha para aqui para ver e corrigir o erro"}}</p>
+  </div>
+
+  <div class="form-label-group">
+   
+ <input type="text" name="titulo" value="{{titulo}}" placeholder="Titulo que a musica vai ter" id="inputEmail" class="form-control" required>
+   
+ <label for="inputEmail">Titulo da musica</label>
+  </div>
+
+  <div class="form-label-group">
+    
+<input type="text" id="inputPassword" name="tipo" value="{{tipo}}" class="form-control" placeholder="Tipo de musica" required>
+    
+<label for="inputPassword">Tipo</label>
+  </div>
+
+ 
+
+<div class="form-label-group">
+   
+ <input type="text" value="{{artistas}}" placeholder="Artistas que participaram" id="inputEmail" name="artistas" class="form-control">
+   
+ <label for="inputEmail">Artistas que participaram</label>
+  </div>
+
+  <div class="form-label-group">
+    
+<input type="file" id="inputPassword" class="form-control" accept="image/*" name="imagem" placeholder="Imagem de capa">
+    
+<label for="inputPassword">Imagem de capa (Opcional)</label>
+  </div>
+
+
+
+<div class="form-label-group">
+   
+ <input type="file" id="inputEmail" name="audio" accept="audio/*" class="form-control" placeholder="Musica em audio">
+   
+ <label for="inputEmail">Audio da musica</label>
+  </div>
+
+  <div class="form-label-group">
+    
+<input type="file" name="video" id="inputPassword" accept="video/*" class="form-control" placeholder="Video">
+    
+<label for="inputPassword">Video</label>
+ </div>
+<div class="form-label-group">
+  
+ <input type="textarea" id="inputEmail" name="sobre" value="{{sobre}}" class="form-control" placeholder="Sobre a sua musica">
+   
+ <label for="inputEmail">Sobre a sua musica (Opcional)</label>
+  </div>
+
+   </div>
+ 
+<button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
+ 
+ <p class="mt-5 mb-3 text-muted text-center">Beat-Box Blog </p>
+</form>
+</body>
+</html>

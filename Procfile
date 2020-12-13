@@ -1,0 +1,1 @@
+web: gunicorn beatbox.wsgi --log-file -

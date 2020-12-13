@@ -1,0 +1,259 @@
+﻿<!doctype html>
+<html lang="pt">{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<meta name="description" content="">
+    
+<link href={% static "bootstrap.min.css" %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+   
+<link href={% static "form-validation.css" %} rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    <div class="container">
+  <div class="py-5 text-center">
+    
+<a href="{% url 'terms' %}">{{terms}}</a><br><img class="d-block mx-auto mb-4" src={% static "favicon.png" %} alt="" width="72" height="72">
+    <h2>{{formulario}}</h2>
+    
+<p class="lead">{{Vani}}.</p>
+  </div>
+
+  <div class="row">
+  
+<div class="col-md-4 order-md-2 mb-4">
+      
+<h4 class="d-flex justify-content-between align-items-center mb-3">
+<span class="text-muted">{{Van_blog}}</span>
+        
+<span class="badge badge-secondary badge-pill">5</span>
+      </h4>
+      <ul class="list-group mb-3">
+        
+<li class="list-group-item d-flex justify-content-between lh-condensed">
+     
+     <div>
+            <h6 class="my-0">{{st_in}}</h6>
+           
+ <small class="text-muted">{{to_ver}}</small>
+          </div>
+          
+<span class="text-muted"></span>
+        </li>
+        
+<li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            
+<h6 class="my-0">{{lj_in}}</h6>
+            <small class="text-muted">{{to_ver}}</small>
+          
+</div>
+          <span class="text-muted"></span>
+        
+</li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            
+<h6 class="my-0">{{mu_p}}</h6>
+            
+<small class="text-muted">{{to_ver}}</small>
+          </div>
+          
+<span class="text-muted"></span>
+        </li>
+        
+<li class="list-group-item d-flex justify-content-between bg-light">
+          
+<div class="text-success">
+            
+<h6 class="my-0">{{tu_gratis}}</h6>
+            <small></small>
+          
+</div>
+          <span class="text-success"></span>
+        </li>
+        
+<li class="list-group-item d-flex justify-content-between">
+          '
+<span>{{tu_ap}}</span>
+          <strong>0$</strong>
+        </li>
+      </ul>
+
+         </div>
+    <div class="col-md-8 order-md-1">
+      
+<h4 class="mb-3">{% if form.errors %} {{form.errors}} {% else %} {{Vat}}{% endif %}</h4>
+      
+<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">{{Primeiro_nome}}</label>
+            
+<input type="text" value="{{pr_nome}}" name="pr_nome" class="form-control" id="firstName" placeholder="" value="{{pr_nome}}" required>
+           
+ <div class="invalid-feedback">
+              {{f_is_required}}.
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            
+<label for="lastName">{{Ultimo_nome}}</label>
+            <input type="text" value="{{ul_nome}}" name="ul_nome" class="form-control" id="lastName" placeholder="" required>
+            
+<div class="invalid-feedback">
+              {{l_is_required}}.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          
+<label for="username">{{EMAIL}} {{optional}}</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              
+{% csrf_token %}<span class="input-group-text">@</span>
+            </div>
+            <input type="text" name="email" value="{{email}}" class="form-control" id="username" placeholder="Email">
+            
+         </div>
+       
+ </div>
+
+        <div class="mb-3">
+          
+<label for="email">{{CONTACTO}}<span class="text-muted">{{contacto_error}}</span></label>
+          <input type="tel" value="{{contacto}}" name="contacto" class="form-control" id="email" placeholder="{{tell}}">
+          
+<div class="invalid-feedback">
+            {{vaido_contacto}}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          
+<label for="address">{{Imagem_de_face}}</label>
+          <input type="file" accept="image/*" class="form-control" id="address">
+          
+<div class="invalid-feedback">{{image_req}} </div>
+        </div>
+
+        <div class="mb-3">
+          
+<label for="address2">{{link_fas}}<span class="text-muted"> {{optional}}</span></label>
+          
+<input type="url" value="{{links}}" name="links" class="form-control" id="address2" placeholder="{{SO_ne}}">
+        </div>
+
+        
+<div class="row">
+          <div class="col-md-5 mb-3">
+            <label for="country">{{Pais}}</label>
+ 
+<input class="form-control" value="{{pais}}" type="text" name="pais"><div class="invalid-feedback">
+              {{valido_pais}}
+            </div>
+          </div>
+          
+<div class="col-md-4 mb-3">
+                        <div class="invalid-feedback">
+</div>
+          
+</div>
+          <div class="col-md-3 mb-3">
+            <label for="data_de_nascimento">{{data_nas}}</label>
+            <input type="date" value="{{data_de_nascimento}}" name="data_de_nascimento" class="form-control" id="zip" required>
+            
+<div class="invalid-feedback">{{valid_data}}</div>
+          </div>
+        </div>
+        <hr class="mb-4">
+        
+
+        <hr class="mb-4">
+
+        
+<h4 class="mb-3">{{SEXO}}</h4>
+
+        <div class="d-block my-3">
+          <div class="custom-control custom-radio">
+            
+<input id="credit" value="Masculino" name="sexo" type="radio" class="custom-control-input" checked required>
+            
+<label class="custom-control-label" for="Masculino" name="sexo">{{masc}}</label>
+          </div>
+          <div class="custom-control custom-radio">
+            
+<input value="Feminino" id="debit" name="sexo" type="radio" class="custom-control-input" required>
+            
+<label class="custom-control-label" for="Feminino">{{femc}}</label>
+          </div>
+                  </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            
+<label for="cc-name">{{wr_mo_you}}</label>
+            <input type="textarea" name="sobre" value="{{sobre}}" class="form-control" id="cc-name" placeholder="{{I_best}}" >
+  
+</div>
+
+          </div>
+        </div>
+                </div>
+        </div>
+        <hr class="mb-4">
+ <br>
+ <div class="col-md-5 mb-3">
+            <label for="passowrd">{{Pass}}</label>
+ 
+<input class="form-control" type="password" name="password"><div class="invalid-feedback">
+              {{valido_pais}}
+            </div>
+          </div>
+          
+<div class="col-md-4 mb-3">
+                        <div class="invalid-feedback">
+</div>
+          
+</div>
+ <div class="col-md-5 mb-3">
+            <label for="password_confirm">{{pass_co}}</label>
+ 
+<input class="form-control" type="password" name="password2"><div class="invalid-feedback">
+              {{valido_pais}}
+            </div>
+          </div>
+          
+<div class="col-md-4 mb-3">
+                        <div class="invalid-feedback">
+</div>
+          
+</div>
+    
+<button class="btn btn-primary btn-lg btn-block" type="submit">{{Criar}}</button>
+      </form>
+  <footer></footer>  </div>
+  </div>
+
+
+</div><br></body>
+

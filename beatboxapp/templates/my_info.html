@@ -1,0 +1,124 @@
+﻿<!doctype html>
+<html lang="pt">
+ {% load static %} {% load string %}<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Info. {{user.pr_nome}}</title>
+
+    
+
+<link href={% static 'bootstrap.min.css' %} rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href={% static "floating-labels.css" %} rel="stylesheet">
+  </head>
+  <body>
+    
+<form class="form-signin" method="post" enctype="multipart/form-data">
+ {% csrf_token %}
+ <div class="text-center mb-4">
+   {% if user.imagem|st > 0 %} <img class="mb-4" src={{user.imagem.url}} alt="" width="72" height="72"> {% endif %}
+ 
+   <h1 class="h3 mb-3 font-weight-normal">Meus dados:{{user.nome}}</h1>
+   
+ <p>Aqui podes alterar seus dados</p>
+  </div>
+
+  <div class="form-label-group">
+   
+ <input type="text" name="pr_nome" value="{{user.pr_nome}}" id="inputEmail" class="form-control" required>
+   
+ <label for="inputEmail">Primeiro nome</label>
+  </div>
+
+  <div class="form-label-group">
+    
+<input type="text" id="inputPassword" name="ul_nome" value="{{user.ul_nome}}" class="form-control" placeholder="Seu ultimo nome" required>
+    
+<label for="inputPassword">Ultimo nome</label>
+  </div>
+
+ 
+
+<div class="form-label-group">
+   
+ <input type="date" value="{{user.data_de_nascimento}}" id="inputEmail" name="data_de_nascimento" class="form-control">
+   
+ <label for="inputEmail">Data de nascimento: {{user.data_de_nascimento|date:"Y/m/d"}}</label>
+  </div>
+
+  <div class="form-label-group">
+    
+<input type="text" id="inputPassword" class="form-control" value="{{user.pais}}" name="pais" placeholder="Pais" required>
+    
+<label for="inputPassword">Pais</label>
+  </div>
+
+
+
+<div class="form-label-group">
+   
+ <input type="tel" id="inputEmail" name="contacto" value="{{user.contacto}}" class="form-control" placeholder="Contacto" required>
+   
+ <label for="inputEmail">Contacto</label>
+  </div>
+
+  <div class="form-label-group">
+    
+<input type="links" name="links" value="{{user.links}}" id="inputPassword" class="form-control" placeholder="links para admiradores">
+    
+<label for="inputPassword">links</label>
+ 
+ </div>
+
+<div class="form-label-group">
+   
+ <input type="email" id="inputEmail" name="email" value="{{user.email}}" class="form-control" placeholder="Email">
+   
+ <label for="inputEmail">Email</label>
+  </div>
+
+
+ 
+
+<div class="form-label-group">
+   
+  
+<input type="password" name="password" value="{{user.password}}" id="inputPassword" class="form-control" placeholder="Password" required>
+    
+<label for="inputPassword">Password</label>
+  </div>
+
+ 
+ {% if user.imagem|length > 0 %} <img class="mb-4" src="{{user.imagem.url}}" alt="" width="72" height="72"> {% endif %}
+<div class="form-label-group">
+   
+ <input type="file" id="inputEmail" accept="image/*" name="imagem" value="{{user.imagem}}" class="form-control" placeholder="Imagem de face">
+   
+ <label for="inputEmail">Imagem de face</label>
+  </div>
+
+ 
+<button class="btn btn-lg btn-primary btn-block" type="submit">Alterar</button>
+ 
+ <p class="mt-5 mb-3 text-muted text-center">Beat-Box Blog</p>
+</form>
+</body>
+</html>
