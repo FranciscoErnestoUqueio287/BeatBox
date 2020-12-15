@@ -37,4 +37,7 @@ admin.site.register(musica)
 admin.site.register(cantor)
 admin.site.register(studio)
 admin.site.register(loja)
+admin.site.register(notificacao)
+admin.site.register(denuncia)
+admin.site.register(terms)
 # Register your models here.

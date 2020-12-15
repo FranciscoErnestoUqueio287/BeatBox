@@ -1,5 +1,5 @@
 ﻿<!doctype html>
- {% load static %}<html lang="en">
+ {% load static %}<html lang="pt">
   <head>
     <meta charset="utf-8">
    
@@ -37,8 +37,8 @@
 <h5 class="my-0 mr-md-auto font-weight-normal">{{title}}</h5>
   <nav class="my-2 my-md-0 mr-md-3">
    
- <a class="p-2 text-dark" href="#">{{Publicar_uma_musica}}</a>
-    <a class="p-2 text-dark" href="#">{{Lista_de_musicas}}</a>
+ <a class="p-2 text-dark" href="{% url 'cria_' %}">{{Publicar_uma_musica}}</a>
+    <a class="p-2 text-dark" href="{% url 'Procura_de_musica' pp %}">{{Lista_de_musicas}}</a>
    
  <a class="p-2 text-dark" href="#">{{Mais_sobre}}</a>
     <a class="p-2 text-dark" href="#">{{Doar}}</a>
@@ -72,7 +72,7 @@
  <li>{{A_juda}}</li>
           <li>{{Ajuda}}</li>
         </ul>
-        <a href={% url 'Procura_de_musica' pp %} ><button type="button" class="btn btn-lg btn-block btn-outline-primary">{{Post_gratis}}</button>
+        <a href="{% url 'Procura_de_musica' pp %}" ><button type="button" class="btn btn-lg btn-block btn-outline-primary">{{Post_gratis}}</button>
 </a>      </div>
    
  </div>
