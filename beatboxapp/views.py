@@ -12,18 +12,18 @@ from django.utils import timezone
 import random
 def gRan():
     if len(studio.objects.all()) > 1 and len(loja.objects.all()) > 1:
-        l = random.randrange(1,2)
+        l = random.randint(1,2)
         if l == 1:
-            l = random.randrange(1,len(studio.objects.all()))
+            l = random.randint(1,len(studio.objects.all()))
             r = {"anuncio":studio.objects.filter(id=l).first(),"ty":"studio","de":l}
         elif l == 2:
-            l = random.randrange(1,len(loja.objects.all()))
+            l = random.randint(1,len(loja.objects.all()))
             r = {"anuncio":loja.objects.filter(id=l).first(),"ty":"loja","de":l} 
     elif len(studio.objects.all()) > 1:
-        l = random.randrange(1,len(studio.objects.all()))
+        l = random.randint(1,len(studio.objects.all()))
         r = {"anuncio":studio.objects.filter(id=l).first(),"ty":"studio","de":l}
     elif len(loja.objects.all()) > 1:
-        l = random.randrange(1,len(loja.objects.all()))
+        l = random.randint(1,len(loja.objects.all()))
         r = {"anuncio":loja.objects.filter(id=l).first(),"ty":"loja","de":l}
     elif len(loja.objects.all()) == 1:
         r = {"anuncio":loja.objects.first(),"ty":"loja","de":l}
@@ -40,21 +40,22 @@ def listRand():
     cho = []
     al = musica.objects
     if len(al.all()) > 10:
-        for x in range(10000):
-            c = random.randrange(len(al.all()))
+        for x in range(100):
+            c = random.randint(1,len(al.all()))
             m = al.filter(id=c).first()
             if m != None:
                 if c not in cho:
                     cho.append(c)
+                
             if len(cho) == 10:
-                continue
+                return cho
         return cho
     else:
         return [i.id for i in musica.objects.all()]
 def getranmusics():
     e = listRand()
     if len(e) >= 10:
-        return musicas.objects.filter(Q(id=e[0])|Q(id=e[1])|Q(id=e[2])|Q(id=e[3])|Q(id=e[4])|Q(id=e[5])|Q(id=e[6])|Q(id=e[7])|Q(id=e[8])|Q(id=e[9])).all()
+        return musica.objects.filter(Q(id=e[0])|Q(id=e[1])|Q(id=e[2])|Q(id=e[3])|Q(id=e[4])|Q(id=e[5])|Q(id=e[6])|Q(id=e[7])|Q(id=e[8])|Q(id=e[9])).all()
     else:
         return musica.objects.all()
 def datat(r="Aeiou"):
@@ -154,7 +155,7 @@ def singerin(request,slug):
                 return redirect(str(r)+"/procura="+str(request.POST["procurar"]))
         return render(request,"cantor.html",e)
     else:
-        return HttpResponse("It doesn't exist",404)
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
 def see_if_exist(s="c",v=None):
     if v == None:
         e = "abcdefghijklmnopkrstuvwx123456789yz"+str("abcdefghijklmnopkrstuvwxyz").upper()
@@ -235,7 +236,7 @@ def user_musicas(request,slug):
             e["musicas"] = musica.objects.filter(de=ca.id).all()
             return render(request,"musics_for_users.html",e)
     else:
-        return HttpResponse("It doesn't exist",404)
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
 def helping(request):
     return render(request,"helping_template.html",{"ajuda":ajuda.objects.all(),"link_para":"Tenha ajuda em","Tema":"As ajudas que podemos oferecer","time":timezone.now(),"nH":"Nenhuma ajuda publicada","learn_more":"Ver mais"})
 # "&raquo; is >>
@@ -244,38 +245,38 @@ def helping_in(request,pr):
 def minha_loja(request,slug,pk):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("It doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         l = loja.objects.filter(slug=pk,de=user.id).first()
         if l == None:
-            return HttpResponse("Doesn't exist")
+            return render(request,"404.html",{"erro":"A loja que estás a tentar acessar não existe"})
         else:
             return render(request,"lojaView.html",{"Contacto":"Contacto","Pais":"Pais","Provincia":"Provincia","Cidade":"Cidade","Localizacao":"Uma localização mais especifica","title":l.nome,"Voltar":"Ir ao meu perfil","My_perfil":"Minhas lojas","link":"Gostar","Search":"Procurar","user":user,"loja":l})
 def meu_studio(request,slug,pk):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("It doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         l = studio.objects.filter(slug=pk,de=user.id).first()
         if l == None:
-            return HttpResponse("Doesn't exist")
+            return render(request,"404.html",{"erro":"O Studio que estás a tentar acessar não existe"})
         else:
             return render(request,"lojaView.html",{"Contacto":"Contacto","Pais":"Pais","Provincia":"Provincia","Cidade":"Cidade","Localizacao":"Uma localização mais especifica","title":l.nome,"Voltar":"Ir ao meu perfil","My_perfil":"Meus studios","link":"Gostar","Search":"Procurar","user":user,"loja":l})
 def user_musica(request,slug,pk):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("It doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         l = musica.objects.filter(slug=pk,de=user.id).first()
         if l == None:
-            return HttpResponse("Doesn't exist")
+            return render(request,"404.html",{"erro":"A musica que estás a tentar acessar não existe"})
         else:
             return render(request,"musicViewUser.html",{"user":user,"music":l,"origin":str(request.META.get("HTTP_HOST"))})
 def post_music(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     r = request.META.get("HTTP_ORIGIN")
     if user == None:
-        return HttpResponse("Not found")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         if request.method == "POST":
             e = {}
@@ -327,7 +328,7 @@ def post_music(request,slug):
 def criar_loja(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("The user doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         if request.method == "POST":
             e = {"time":timezone.now(),"email_p":"Email (Opcional)","user":user,"pre_face":"Criando uma conta loja no BeatBox Blog pode fazer com que a tua loja cresça","nome_p":"Nome da loja","contacto_p":"Contacto para contartar-vos","imagem_p":"Imagem da loja","localizacao_p":"Mais detalhes sobre a vossa localização","cidade_p":"Cidade","pais_p":"Pais","escrever":"Escrever","provincia_p":"Provincia","sobre_p":"Sobre"}
@@ -352,7 +353,7 @@ def criar_loja(request,slug):
 def criar_studio(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("The user doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         if request.method == "POST":
             e = {"time":timezone.now(),"email_p":"Email (Opcional)","user":user,"pre_face":"Criando uma conta studio no BeatBox Blog pode fazer com que o teu studio cresça","nome_p":"Nome da loja","contacto_p":"Contacto para contartar-vos","imagem_p":"Imagem do studio","localizacao_p":"Mais detalhes sobre a vossa localização","cidade_p":"Cidade","pais_p":"Pais","escrever":"Escrever","provincia_p":"Provincia","sobre_p":"Sobre"}
@@ -377,7 +378,7 @@ def criar_studio(request,slug):
 def my_info_see(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("The user doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         if request.method == "POST":
             e = {}
@@ -425,22 +426,22 @@ def ver_lojas(request):
 def ver_studio_especifico(request,slug,pk):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("Fuck off ",404)
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         st = studio.objects.filter(slug=pk).first()
         if st == None:
-            return HttpResponse("Nao existe")
+            return render(request,"404.html",{"erro":"O Studio que estás a tentar acessar não existe"})
         else:
             return render(request,"studio.html",{"like":"no","studio":st,"user":user})
         
 def ver_loja_especifica(request,slug,pk):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("Fuck off ",404)
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         st = loja.objects.filter(slug=pk).first()
         if st == None:
-            return HttpResponse("Nao existe")
+            return render(request,"404.html",{"erro":"A loja que estás a tentar acessar não existe"})
         else:
             return render(request,"studio.html",{"like":"no","studio":st,"user":user})
 def musicassss(request,slug):
@@ -478,42 +479,42 @@ def musicassss(request,slug):
             
             return render(request,"musics_for_users.html",e)
     else:
-        return HttpResponse("It doesn't exist",404)
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
 def musicass(request,slug,pk):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("It doesn't exist")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         l = musica.objects.filter(slug=pk).first()
         if l == None:
-            return HttpResponse("Doesn't exist")
+            return render(request,"404.html",{"erro":"A musica que estás a tentar acessar não existe"})
         else:
             return render(request,"musicViewUser.html",{"user":user,"music":l})
 
 def meus_studios(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("Not found in time")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         return render(request,"studios.html",{"my_lojas":"Musicas do Beat-Box","my_studious":"Meus Studios","bem_vindo":"Bem-vindo a Beat-Box","title":"Meus Studios","voltar":"Ir a minha pagina ","download":"Baixar","musics":musica.objects.all(),"studios":studio.objects.filter(de=user.id).all(),"user":user})
 
 def minhas_lojas(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("Not found in time")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         return render(request,"studios1.html",{"my_lojas":"Musicas do Beat-Box","my_studious":"Minhas lojas","bem_vindo":"Bem-vindo a Beat-Box","title":"Meus Studios","voltar":"Ir a minha pagina ","download":"Baixar","musics":musica.objects.all(),"studios":loja.objects.filter(de=user.id).all(),"user":user})
 
 def seeing_especific_music(request,pr):
     music = musica.objects.filter(slug=pr).first()
     if music == None:
-        return render(request,"404.html",404)
+        return render(request,"404.html",{"erro":"A musica que estás a tentar acessar não existe"})
     else:
         return render(request,"musicView.html",{"like":"not","Pagina_inicial":"Pagina inicial","procurar":"Procurar","music":music,"origin":str(request.META.get("HTTP_HOST"))})
 def seeing_especific_music_with_user(request,slug,pr):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
-        return HttpResponse("Not found in time")
+        return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
         music = musica.objects.filter(slug=pr).first()
         if music == None:
@@ -524,14 +525,14 @@ def seeing_especific_music_with_user(request,slug,pr):
 def ver_studios_es(request,pk):
     st = studio.objects.filter(slug=pk).first()
     if st == None:
-        return HttpResponse("Nao existe")
+        return render(request,"404.html",{"erro":"O Studio que estás a tentar acessar não existe"})
     else:
         return render(request,"StView.html",{"like":"no","origin":str(request.META.get("HTTP_HOST")),"loja":st,"type":"studio","link":"Link do studio","Contacto":"Contacto","Pais":"Pais","Provincia":"Provincia","Cidade":"Cidade","Localizacao":"Localização"})
         
 def ver_lojas_es(request,pk):
     st = loja.objects.filter(slug=pk).first()
     if st == None:
-        return HttpResponse("Nao existe")
+        return render(request,"404.html",{"erro":"A Loja que estás a tentar acessar não existe"})
     else:
         return render(request,"StView.html",{"like":"no","origin":str(request.META.get("HTTP_HOST")),"loja":st,"type":"loja","link":"Link da loja","Contacto":"Contacto","Pais":"Pais","Provincia":"Provincia","Cidade":"Cidade","Localizacao":"Localização"})
 def liking_music(request,pr):
@@ -565,14 +566,14 @@ def artistas_see(request):
     artistas = cantor.objects.all()
     return render(request,"artistas.html",{"artistas":artistas})
 def artista_see(request,pk):
-    can = cantor.objects.filter(slug=pk).first()
+    can = cantor.objects.filter(id=pk).first()
     if can == None:
         return render(request,"404.html",{"erro":"O artista que procuras não foi achado"})
     else:
         mu = musica.objects.filter(de=can.id).all()
         return render(request,"seeArt.html",{"gosto":"not","artista":can,"musics":mu,"q":len(mu)})
 def artista_g(request,pk):
-    can = cantor.objects.filter(slug=pk).first()
+    can = cantor.objects.filter(id=pk).first()
     if can != None:
         can.gostos = int(can.gostos) + 1
         can.save()
@@ -581,7 +582,7 @@ def artista_g(request,pk):
     else:
         return render(request,"404.html",{"erro":"O artista que procuras não foi achado"})
 def artista_d(request,pk):
-    can= cantor.objects.filter(slug=pk).first()
+    can= cantor.objects.filter(id=pk).first()
     if can == None:
         return render(request,"404.html",{"error":"O artista que procuras não foi encontrado"})
     else:

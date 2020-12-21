@@ -27,7 +27,7 @@
 <link href={% static "starter-template.css" %} rel="stylesheet">
   </head>
   <body{% if artista.imagem|st > 0 %} style="background-image:url('{{artista.imagem.url}}')" {% endif %}>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"> <a class="nav-link" href="{% url 'artista_d' artista.slug %}">Denunciar</a> <br>{% if gosto == "not" %}<a class="nav-link" href="{% url 'artista_g' artista.slug %}">Gostar</a> {% else %} <a class="nav-link" href="#">Gostaste</a> {% endif %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"> <a class="nav-link" href="{% url 'artista_d' artista.id %}">Denunciar</a> <br>{% if gosto == "not" %}<a class="nav-link" href="{% url 'artista_g' artista.id %}">Gostar</a> {% else %} <a class="nav-link" href="#">Gostaste</a> {% endif %}
 </nav>
 
 <br><br><br><main role="main" class="container">
