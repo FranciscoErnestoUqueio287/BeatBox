@@ -75,8 +75,10 @@ DATABASES = {
         #'NAME': str(BASE_DIR / 'db.sqlite3'),
         'PORT':'5432',
         'USER':'vhiwpdasrjjeyj',
-        'PASSWORD':'ead24368f75cf6ff54e7b9e0ba4a5a9361047830eae48a5310580bcb532b27df'}}
-}
+        'PASSWORD':'ead24368f75cf6ff54e7b9e0ba4a5a9361047830eae48a5310580bcb532b27df'
+        }
+    }
+
 
 
 # Password validation
