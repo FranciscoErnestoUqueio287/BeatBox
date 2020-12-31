@@ -78,7 +78,8 @@ DATABASES = {
         'PASSWORD':'ead24368f75cf6ff54e7b9e0ba4a5a9361047830eae48a5310580bcb532b27df'
         }
     }
-
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
