@@ -67,12 +67,15 @@ WSGI_APPLICATION = 'beatbox.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+#postgres://vhiwpdasrjjeyj:ead24368f75cf6ff54e7b9e0ba4a5a9361047830eae48a5310580bcb532b27df@ec2-54-196-89-124.compute-1.amazonaws.com:5432/d6375g9lo7ouqm
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST':'ec2-54-196-89-124.compute-1.amazonaws.com',
+        #'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'PORT':'5432',
+        'USER':'vhiwpdasrjjeyj',
+        'PASSWORD':'ead24368f75cf6ff54e7b9e0ba4a5a9361047830eae48a5310580bcb532b27df'}}
 }
 
 
