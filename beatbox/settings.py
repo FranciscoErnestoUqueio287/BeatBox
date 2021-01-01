@@ -16,7 +16,7 @@ ALLOWED_HOSTS = ["*","https://bbmz.herokuapp.com/"]
 SECRET_KEY = '-%5g7gbqk+=+v&gwyu0!+d8t8*%omc!tfz7^1m-o^b6&z8=h88'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #SQL_ALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
