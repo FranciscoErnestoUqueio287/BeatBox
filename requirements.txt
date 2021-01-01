@@ -6,3 +6,4 @@ psycopg2==2.8.6
 django-db-file-storage==0.5.5
 dj_database_url==0.5.0
 
+
