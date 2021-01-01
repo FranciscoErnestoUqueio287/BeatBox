@@ -496,14 +496,14 @@ def meus_studios(request,slug):
     if user == None:
         return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
-        return render(request,"studios.html",{"my_lojas":"Musicas do Beat-Box","my_studious":"Meus Studios","bem_vindo":"Bem-vindo a Beat-Box","title":"Meus Studios","voltar":"Ir a minha pagina ","download":"Baixar","musics":musica.objects.all(),"studios":studio.objects.filter(de=user.id).all(),"user":user})
+        return render(request,"studios.html",{"my_lojas":"Musicas do Beat-Box","my_studious":"Meus Studios","bem_vindo":"Bem-vindo a Beat-Box","title":"Meus Studios","voltar":"Ir a minha pagina ","download":"Baixar","musics":getranmusics(),"studios":studio.objects.filter(de=user.id).all(),"user":user})
 
 def minhas_lojas(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     if user == None:
         return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
     else:
-        return render(request,"studios1.html",{"my_lojas":"Musicas do Beat-Box","my_studious":"Minhas lojas","bem_vindo":"Bem-vindo a Beat-Box","title":"Meus Studios","voltar":"Ir a minha pagina ","download":"Baixar","musics":musica.objects.all(),"studios":loja.objects.filter(de=user.id).all(),"user":user})
+        return render(request,"studios1.html",{"my_lojas":"Musicas do Beat-Box","my_studious":"Minhas lojas","bem_vindo":"Bem-vindo a Beat-Box","title":"Meus Studios","voltar":"Ir a minha pagina ","download":"Baixar","musics":getranmusics(),"studios":loja.objects.filter(de=user.id).all(),"user":user})
 
 def seeing_especific_music(request,pr):
     music = musica.objects.filter(slug=pr).first()

@@ -63,7 +63,8 @@
 <a href={% url "minha_conta" %} class="btn btn-primary my-2">{{myaccount}}</a>
        <a href="ajuda/" class="btn btn-secondary my-2">{{Ajuda}}</a>
  <a href={% url "minha_conta" %} class="btn btn-secondary my-2">{{post_my_music}}</a>
-      </p>
+  <a href="https://facebook.com/­Feu-1962659720641471/­?view_public_for=1962­659720641471&_rdr" class="btn btn-secondary my-2"><img src="{% static 'facebook.png' %}"></img></a>
+           </p>
  
 {% if ty == "studio" %}<a href="{% url 'Ver_ess' anuncio.slug %}"><p>Studio:{{anuncio.nome}}</p></a>{% elif ty == "loja" %}<a href="{% url 'Ver_esl' anuncio.slug %}"><p>Loja: {{anuncio.nome}}</p></a>{% endif %}
 </div>
