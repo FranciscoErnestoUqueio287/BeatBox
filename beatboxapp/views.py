@@ -10,6 +10,64 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 import random
+
+def my_slug(para="",tentar=None):
+    if para == "c":
+        if tentar != None and type(tentar) == str:
+            ca = cantor.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+        else:
+            tentar = str(random.randint(1000000000000,89888888888888129382131283912))
+            ca = cantor.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+    elif para == "m":
+        if tentar != None and type(tentar) == str:
+            ca = musica.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+        else:
+            tentar = str(random.randint(1000000000000,99888888888888129382131283912))
+            ca = musica.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+    if para == "s":
+        if tentar != None and type(tentar) == str:
+            ca = studio.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+        else:
+            tentar = str(random.randint(1000000000000,99888888888888129382131283912))
+            ca = studio.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+    if para == "l":
+        if tentar != None and type(tentar) == str:
+            ca = loja.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
+        else:
+            tentar = str(random.randint(1000000000000,99888888888888129382131283912))
+            ca = loja.objects.filter(slug=tentar).first()
+            if ca == None:
+                return tentar
+            else:
+                return my_slug(para=para,tentar=None)
 def gRan():
     if len(studio.objects.all()) > 1 and len(loja.objects.all()) > 1:
         l = random.randint(1,2)
@@ -178,7 +236,7 @@ def criarcantor(request):
                     form.save()
                     obj = request.POST
                     cant = cantor.objects.filter(contacto=obj["contacto"],pr_nome=obj["pr_nome"],ul_nome=obj["ul_nome"],password=obj["password"]).first()
-                    cant.slug = see_if_exist(s="c",v=obj['csrfmiddlewaretoken'])
+                    cant.slug = my_slug(para="c",tentar=obj['csrfmiddlewaretoken'])
                     cant.save()
                     r = request.META.get("HTTP_ORIGIN")
                     return redirect(str(r)+"/myaccount/"+cant.slug)
@@ -288,7 +346,7 @@ def post_music(request,slug):
                     if len(request.FILES["audio"]) > 4:
                         form.save()
                         musi = musica.objects.filter(titulo=request.POST["titulo"],tipo=e["tipo"],artistas=e["artistas"]).first()
-                        musi.slug = e["csrfmiddlewaretoken"]
+                        musi.slug = my_slug(para="m",tentar=e["csrfmiddlewaretoken"])
                         musi.de=user.id
                         musi.save()
                         return redirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
@@ -302,7 +360,7 @@ def post_music(request,slug):
                     if len(request.FILES["video"]) > 4:
                         form.save()
                         musi = musica.objects.filter(titulo=request.POST["titulo"],tipo=e["tipo"],artistas=e["artistas"]).first()
-                        musi.slug = e["csrfmiddlewaretoken"]
+                        musi.slug = my_slug(para="m",tentar=e["csrfmiddlewaretoken"])
                         musi.de=user.id
                         musi.save()
                         return redirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
@@ -339,7 +397,7 @@ def criar_loja(request,slug):
             if form.is_valid():
                 form.save()
                 lo =  loja.objects.filter(nome=e["nome"],pais=e["pais"],contacto=e["contacto"],provincia=e["provincia"],cidade=e["cidade"]).first()
-                lo.slug = e["csrfmiddlewaretoken"]
+                lo.slug = my_slug(para="l",tentar=e["csrfmiddlewaretoken"])
                 lo.de = user.id
                 lo.save()
                 r = request.META.get("HTTP_ORIGIN")
@@ -364,7 +422,7 @@ def criar_studio(request,slug):
             if form.is_valid():
                 form.save()
                 lo =  studio.objects.filter(nome=e["nome"],pais=e["pais"],contacto=e["contacto"],provincia=e["provincia"],cidade=e["cidade"]).first()
-                lo.slug = e["csrfmiddlewaretoken"]
+                lo.slug = my_slug(para="s",tentar=e["csrfmiddlewaretoken"])
                 lo.de = user.id
                 lo.save()
                 r = request.META.get("HTTP_ORIGIN")
