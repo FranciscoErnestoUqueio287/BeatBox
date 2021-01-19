@@ -1,0 +1,47 @@
+﻿<!doctype html>
+<html lang="pt">
+ {% load static %} <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Erro</title>    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+ 
+
+
+
+<link href={% static "bootstrap.min.css" %} rel="stylesheet">
+
+  <link href={% static "starter-template.css" %} rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"> <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'Pagina_inicial' %}">Home <span class="sr-only"></span></a>
+      </li>
+   </ul></div>
+</nav>
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+    <h1>{{error|default:"Erro do site"}}</h1>
+ <p class="lead">{{erro|default:"Ocorreu um erro durante o processamento de dados, por favor tente de novo"}}.</p>
+  </div>
+
+</main>
+</html>
