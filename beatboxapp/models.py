@@ -20,7 +20,7 @@ class musica(Model):
     tipo = CharField(verbose_name="tipo",max_length=150,default=" ",blank=False,null=False)
     sobre = TextField(verbose_name="sobre",default="A melhor musica de sempre",blank=True,null=False)
     artistas = CharField(verbose_name="artistas",max_length=150,default="",blank=False,null=False)
-    slug = SlugField(verbose_name="slug",default="ksDI89dsdjK",blank=True,null=False)
+    slug = SlugField(verbose_name="slug",default="ksDI8lkdlaskldkslkasdlkslsdakl9dsdjK",blank=True,null=False)
     video = FileField(verbose_name="video",blank=True,null=False,upload_to="beatboxapp.video/byte/filename/mimetype")
     audio = FileField(verbose_name="audio",blank=True,null=False,upload_to="beatboxapp.audio/byte/filename/mimetype")
     imagem = ImageField(verbose_name="imagem",blank=True,null=False,upload_to="beatboxapp.imagem/byte/filename/mimetype")

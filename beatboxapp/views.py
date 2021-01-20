@@ -3,7 +3,7 @@ from django.views.generic import CreateView , ListView
 import base64
 from .models import *
 from .forms import *
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import random
 from django.db.models import Q
 from django.shortcuts import render
@@ -210,7 +210,7 @@ def singerin(request,slug):
         if request.method == "POST":
             if len(request.POST["procurar"]) > 1:
                 r = request.META.get("HTTP_ORIGIN")
-                return redirect(str(r)+"/procura="+str(request.POST["procurar"]))
+                return HttpResponseRedirect(str(r)+"/procura="+str(request.POST["procurar"]))
         return render(request,"cantor.html",e)
     else:
         return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
@@ -236,10 +236,10 @@ def criarcantor(request):
                     form.save()
                     obj = request.POST
                     cant = cantor.objects.filter(contacto=obj["contacto"],pr_nome=obj["pr_nome"],ul_nome=obj["ul_nome"],password=obj["password"]).first()
-                    cant.slug = my_slug(para="c",tentar=obj['csrfmiddlewaretoken'])
+                    cant.slug = my_slug(para="c",tentar=str(obj['csrfmiddlewaretoken']))
                     cant.save()
                     r = request.META.get("HTTP_ORIGIN")
-                    return redirect(str(r)+"/myaccount/"+cant.slug)
+                    return HttpResponseRedirect(str(r)+"/myaccount/"+cant.slug)
                 else:
                  e = logging_data()
                 for x in request.POST:
@@ -344,12 +344,20 @@ def post_music(request,slug):
             if form.is_valid():
                 if "audio" in [x for x in request.FILES]:
                     if len(request.FILES["audio"]) > 4:
-                        form.save()
-                        musi = musica.objects.filter(titulo=request.POST["titulo"],tipo=e["tipo"],artistas=e["artistas"]).first()
-                        musi.slug = my_slug(para="m",tentar=e["csrfmiddlewaretoken"])
-                        musi.de=user.id
+                        #form.save()
+                        #musi = musica.objects.filter(titulo=request.POST["titulo"],tipo=e["tipo"],artistas=e["artistas"]).first()
+                        #musi.slug = my_slug(para="m",tentar=e["csrfmiddlewaretoken"])
+                        #musi.de=user.id
+                        cvb = my_slug(para="m",tentar=str(e["csrfmiddlewaretoken"]))
+                        musi = musica(titulo=e["titulo"],slug=cvb,tipo=e["tipo"],artistas=e["artistas"],sobre=e["sobre"],de=user.id)
+                        if "imagem" in [x for x in request.FILES]:
+                            musi.imagem = request.FILES["imagem"]
+                        if "video" in [x for x in request.FILES]:
+                            musi.video=request.FILES["video"]
+                        if "audio" in [x for x in request.FILES]:
+                            musi.audio=request.FILES["audio"]
                         musi.save()
-                        return redirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
+                        return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
                     else:
                         y = {}
                         y["error"] = "Adicione um video ou um audio"
@@ -358,12 +366,16 @@ def post_music(request,slug):
                         return render(request,"post_music.html",e)
                 elif "video" in [x for x in request.FILES]:
                     if len(request.FILES["video"]) > 4:
-                        form.save()
-                        musi = musica.objects.filter(titulo=request.POST["titulo"],tipo=e["tipo"],artistas=e["artistas"]).first()
-                        musi.slug = my_slug(para="m",tentar=e["csrfmiddlewaretoken"])
-                        musi.de=user.id
+                        cvb = my_slug(para="m",tentar=str(e["csrfmiddlewaretoken"]))
+                        musi = musica(titulo=e["titulo"],slug=cvb,tipo=e["tipo"],artistas=e["artistas"],sobre=e["sobre"],de=user.id)
+                        if "imagem" in [x for x in request.FILES]:
+                            musi.imagem = request.FILES["imagem"]
+                        if "video" in [x for x in request.FILES]:
+                            musi.video=request.FILES["video"]
+                        if "audio" in [x for x in request.FILES]:
+                            musi.audio=request.FILES["audio"]
                         musi.save()
-                        return redirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
+                        return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
                     else:
                         y = {}
                         y["error"] = "Adicione um video ou um audio"
@@ -401,7 +413,7 @@ def criar_loja(request,slug):
                 lo.de = user.id
                 lo.save()
                 r = request.META.get("HTTP_ORIGIN")
-                return redirect(str(r)+"/myaccount/"+str(user.slug)+"/loja/"+lo.slug)
+                return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/loja/"+lo.slug)
             else:
                 e["form"] = form
                 e["user"] = user
@@ -426,7 +438,7 @@ def criar_studio(request,slug):
                 lo.de = user.id
                 lo.save()
                 r = request.META.get("HTTP_ORIGIN")
-                return redirect(str(r)+"/myaccount/"+str(user.slug)+"/studio/"+lo.slug)
+                return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/studio/"+lo.slug)
             else:
                 e["form"] = form
                 e["user"] = user
@@ -615,7 +627,7 @@ def blaming_music(request,pr):
                 music.denuncias = int(music.denuncias) + 1
                 de.save()
                 music.save()
-                return redirect(str(request.META.get("HTTP_HOST"))+"music/"+str(pr))
+                return HttpResponseRedirect(str(request.META.get("HTTP_HOST"))+"music/"+str(pr))
             else:
                 return render(request,"denunciar.html",{"erro":"Adicione conteudo a denuncia para que seja valida"})
         else:
@@ -653,7 +665,7 @@ def artista_d(request,pk):
                 can.denuncias = int(can.denuncias) + 1
                 de.save()
                 can.save()
-                return redirect(str(request.META.get("HTTP_HOST"))+"artistas/"+str(pk))
+                return HttpResponseRedirect(str(request.META.get("HTTP_HOST"))+"artistas/"+str(pk))
             else:
                 return render(request,"denunciar.html",{"erro":"Adicione conteudo a denuncia para que seja valida"})
         else:
@@ -672,7 +684,7 @@ def denunciar_s(request,pk):
                 de.save()
                 st.denuncias = int(st.denuncias) + 1
                 st.save()
-                return redirect(str(request.META.get("HTTP_HOST"))+"studios/"+str(pk))
+                return HttpResponseRedirect(str(request.META.get("HTTP_HOST"))+"studios/"+str(pk))
             else:
                  return render(request,"denunciar.html",{"erro":"Adicione conteudo a denuncia para que seja valida"})
         else:
@@ -691,7 +703,7 @@ def denunciar_l(request,pk):
                 de.save()
                 st.denuncias = int(st.denuncias) + 1
                 st.save()
-                return redirect(str(request.META.get("HTTP_HOST"))+"lojas/"+str(pk))
+                return HttpResponseRedirect(str(request.META.get("HTTP_HOST"))+"lojas/"+str(pk))
             else:
                  return render(request,"denunciar.html",{"erro":"Adicione conteudo a denuncia para que seja valida"})
         else:
