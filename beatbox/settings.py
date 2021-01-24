@@ -7,7 +7,8 @@ ERROR_400_TEMPLATE_NAME = '404.html'
 ERROR_403_TEMPLATE_NAME = '404.html'
 ERROR_404_TEMPLATE_NAME = '404.html'
 ERROR_500_TEMPLATE_NAME = '500.html'
-ALLOWED_HOSTS = ["*","https://bbmz.herokuapp.com/"]
+ERROR_503_TEMPLATE_NAME = '503.html'
+ALLOWED_HOSTS = ["*","bbmz.herokuapp.com"]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -81,7 +82,6 @@ DATABASES = {
     }
 import dj_database_url
 DATABASES['default'] = dj_database_url.config()
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
