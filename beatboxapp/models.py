@@ -59,7 +59,7 @@ class cantor(Model):
     imagem = ImageField(verbose_name="imagem",blank=True,null=False,upload_to="beatboxapp.imagem/byte/filename/mimetype")
     denuncias = PositiveIntegerField(verbose_name="denuncias",default=0,blank=True,null=False)
     gostos = PositiveIntegerField(verbose_name="gostos",default=0,blank=True,null=False)
-    slug = SlugField(verbose_name="slug",default="jkjsuisUIUS8d78sd87as",blank=True,null=False)
+    slug = SlugField(verbose_name="slug",max_length=500,default="jkjsuisUIUS8d78sd87as",blank=True,null=False)
     pais = CharField(verbose_name="pais",default="",max_length=200,blank=False,null=False)
     def __str__(self):
         return self.pr_nome + " " + self.ul_nome
@@ -83,7 +83,7 @@ class loja(Model):
     localizacao = CharField(verbose_name="localizacao",default="",max_length=200,blank=False,null=False)
     denuncias = PositiveIntegerField(verbose_name="denuncias",default=0,blank=True,null=False)
     gostos = PositiveIntegerField(verbose_name="gostos",default=0,blank=True,null=False)
-    slug = SlugField(verbose_name="slug",default="jdkuuad8a98d98a8uasuuida",blank=True,null=False)
+    slug = SlugField(verbose_name="slug",max_length=500,default="jdkuuad8a98d98a8uasuuida",blank=True,null=False)
     def __str__(self):
         return self.nome
     def save(self, *args, **kwargs):
@@ -103,7 +103,7 @@ class studio(Model):
     provincia = CharField(verbose_name="provincia",default="",max_length=200,blank=False,null=False)
     cidade = CharField(verbose_name="cidade",default="",max_length=200,blank=False,null=False)
     de = PositiveIntegerField(verbose_name="de",default=0,blank=True,null=False)
-    slug = SlugField(verbose_name="iklsdkl",default="jkjkdjsajdkjajasdkjanhdja",blank=True,null=False)
+    slug = SlugField(verbose_name="iklsdkl",max_length=500,default="jkjkdjsajdkjajasdkjanhdja",blank=True,null=False)
     localizacao = CharField(verbose_name="localizacao",default="",max_length=200,blank=False,null=False)
     denuncias = PositiveIntegerField(verbose_name="denuncias",default=0,blank=True,null=False)
     gostos = PositiveIntegerField(verbose_name="gostos",default=0,blank=True,null=False)
@@ -119,13 +119,13 @@ class notificacao(Model):
     conteudo = TextField()
     data_de_criacao = DateTimeField(auto_now_add=True)
     para = PositiveIntegerField(verbose_name="para",default=0,blank=True,null=False)
-    slug = SlugField(verbose_name="slug",default="hjahjjdhjh",blank=True,null=False)
+    slug = SlugField(verbose_name="slug",max_length=500,default="hjahjjdhjh",blank=True,null=False)
 class ajuda(Model):
     tema = CharField(max_length=200,blank=False,null=False)
     data_de_criacao = DateTimeField(verbose_name="data_de_criacao",auto_now_add=True)
     dica = TextField(blank=False,null=False)
     link = CharField(max_length=300,blank=False,null=False)
-    slug = SlugField(verbose_name="slug",default="iklsdkl",blank=True,null=False)
+    slug = SlugField(verbose_name="slug",max_length=500,default="iklsdkl",blank=True,null=False)
 r = (("musica","musica"),("cantor","cantor"),("studio","studio"),("loja","loja"))
 class denuncia(Model):
     to = CharField(verbose_name="to",default="musica",choices=r,max_length=200,blank=False,null=False)
