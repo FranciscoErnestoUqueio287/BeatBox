@@ -168,7 +168,6 @@ def promus(request,r):
         #e["about_blog"] = "São resultados da pesquisa de &lt;bold&gt;"+str(r)+"&lt;bold&gt;"
         return render(request,"musics.html",e)
 def mainpage(request):
-    print(request.COOKIES)
     if request.method == "POST":
         return render(request,"procura.html",datat(r=request.POST["procurar"]))
     else:
@@ -176,6 +175,10 @@ def mainpage(request):
         e["musicas"] = getranmusics()
         return render(request,"musics.html",e)
 def userlog(request):
+    if request.COOKIES.get("boxcookie") != None:
+        c = request.COOKIES.get("boxcookie")
+        r = request.META.get("HTTP_ORIGIN")
+        return redirect(str(r)+"/myaccount/"+str(c))
     if request.method == "POST":
         if len(request.POST) > 0:
             can = cantor.objects.filter(contacto=request.POST["contacto"],password=request.POST["password"]).first()
@@ -187,7 +190,9 @@ def userlog(request):
                 return render(request,"log.html",e)
             else:
                 r = request.META.get("HTTP_ORIGIN")
-                return redirect(str(r)+"/myaccount/"+str(can.slug))
+                t  =redirect(str(r)+"/myaccount/"+str(can.slug))
+                t.set_cookie("boxcookie",can.slug)
+                return t
     else:
         return render(request,"log.html")
 def logging_data():
@@ -211,8 +216,12 @@ def singerin(request,slug):
         if request.method == "POST":
             if len(request.POST["procurar"]) > 1:
                 r = request.META.get("HTTP_ORIGIN")
-                return HttpResponseRedirect(str(r)+"/procura="+str(request.POST["procurar"]))
-        return render(request,"cantor.html",e)
+                nm = HttpResponseRedirect(str(r)+"/procura="+str(request.POST["procurar"]))
+                nm.set_cookie("boxcookie",ca.slug)
+                return nm
+        vb  = render(request,"cantor.html",e)
+        vb.set_cookie("boxcookie",ca.slug)
+        return vb
     else:
         return render(request,"404.html",{"erro":"A conta que estás a tentar acessar não existe"})
 def see_if_exist(s="c",v=None):

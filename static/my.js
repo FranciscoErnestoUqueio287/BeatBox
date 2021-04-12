@@ -1,5 +1,6 @@
 $(document).ready(function() {;
-	$("p#progressbar").replaceWith("<p id='progressbar'>0%</p>");
+	var pro = $("div.progress-bar")[0];
+	pro.style.width = '0%';
 	$('form').on('submit',function(event) {
 		event.preventDefault();
 		var formData = new FormData($('form')[0]);
@@ -9,7 +10,9 @@ $(document).ready(function() {;
 			xhr.upload.addEventListener('progress', function(event) {
 				if (event.lengthComputable) {
 				var how = Math.round((event.loaded / event.total) * 100 );
-				$("#progressbar").replaceWith("<p id='progressbar'>"+ how.toString() + "%"+"</p>");
+				pro.style.width = how.toString()+"%";
+				pro.ariaValueNow = how.toString();
+				pro.innerHTML = how.toString()+"%";
 				}
 			});
 			return xhr;
@@ -19,13 +22,19 @@ $(document).ready(function() {;
 		data : formData,
 		processData : false,
 		contentType : false,
-		sucess : function() {
-		console.log("Done uploading");
-		console.log($('#urp').value);
-		 window.location = $('#urp').value }
-		})
+		success : function() {
+		 alert("Publicada com sucesso!");
+		}
 		});
 	});
+});
+
+
+
+
+
+
+
 
 
 
