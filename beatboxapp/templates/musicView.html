@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
-<title>{{music.titulo}}</title>
+<title>{{music}}</title>
 
 <link href={% static "bootstrap.min.css" %} rel="stylesheet">
 
@@ -42,8 +42,8 @@
 
 <main role="main" class="container">
   <div class="jumbotron">
-    
-<h1>{{music.artistas}}:{{music.titulo}}</h1>
-<br> {% if music.audio|st > 0  %} <audio src="{% url 'see' %}?name={{music.audio}}" controls></audio> <a href="{% url 'down' %}?name={{music.audio}}">Baixar audio</a> {% endif %}  {% if music.video|st > 0  %} <video src="{% url 'see' %}?name={{music.video}}" controls></video> <a href="{% url 'down' %}?name={{music.video}}">Baixar video</a> {% endif %}     <p class="lead">{{music.sobre}}.</p>
+<h1>{{music.artistas}} : {{music.titulo}}</h1>
+<br><h2>Tamanhos: Audio = {{music.tam_audio|filesizeformat}} & Video  = {{music.tam_video|filesizeformat}}</h2>
+<br> {% if music.audio|st > 0  %} <audio src="{% url 'see' %}?name={{music.audio}}" controls></audio> <br> <a class="btn btn-primary my-2"  href="{% url 'down' %}?name={{music.audio}}">Baixar audio</a> {% endif %}  {% if music.video|st > 0  %} <br><video src="{% url 'see' %}?name={{music.video}}" controls></video> <br> <a class="btn btn-primary my-2" href="{% url 'down' %}?name={{music.video}}">Baixar video</a> {% endif %}     <p class="lead">{{music.sobre}}.</p>
  </div>
 </main></html>

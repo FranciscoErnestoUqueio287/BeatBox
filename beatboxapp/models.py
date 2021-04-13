@@ -29,8 +29,10 @@ class musica(Model):
     downloads = PositiveIntegerField(verbose_name="downloads",default=0,blank=True,null=False)
     denuncias = PositiveIntegerField(verbose_name="denuncias",default=0,blank=True,null=False)
     gostos = PositiveIntegerField(verbose_name="gostos",default=0,blank=True,null=False)
+    tam_audio = PositiveIntegerField(verbose_name="tam_audio",default=0,blank=True,null=False)
+    tam_video = PositiveIntegerField(verbose_name="tam_audio",default=0,blank=True,null=False)
     def __str__(self):
-        return str(self.artistas) + " :" + str(self.titulo)
+        return str(self.artistas) + " : " + str(self.titulo)
     def save(self, *args, **kwargs):
             delete_file_if_needed(self, 'imagem')
             delete_file_if_needed(self, 'video')

@@ -56,7 +56,8 @@
         <strong class="d-block text-gray-dark">{{x.nome}}</strong>{{x.sobre|truncatechars:30}}</p><a href="{% url 'Meu_studio' user.slug x.slug %}">Ver mais</a>
     
 </div>
- {% endfor %}   </div>{% endif %}
+ {% endfor %}   </div> {% else %}<h6 class="border-bottom border-gray pb-2 mb-0">Nenhum</h6>
+{% endif %}
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
   {% if musics|length > 0 %}  <h6 class="border-bottom border-gray pb-2 mb-0">{{my_lojas}}</h6>
@@ -64,7 +65,8 @@
       {% if x.imagem|st > 0 %} <img width="32" height="32" class="bd-placeholder-img mr-2 rounded" src="{% url 'see' %}?name={{x.imagem}}"> 
 {% else %}<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>{{x.nome}}</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
 
-    {% endif %}
+  
+{% endif %}
 <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
         <div class="d-flex justify-content-between align-items-center w-100">
           

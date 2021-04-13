@@ -23,7 +23,7 @@ $(document).ready(function() {;
 		processData : false,
 		contentType : false,
 		success : function() {
-		 alert("Publicada com sucesso!");
+		window.location = $('#urp').value+"/"+$('input')[0].value;
 		}
 		});
 	});

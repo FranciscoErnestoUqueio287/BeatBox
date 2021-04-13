@@ -8,8 +8,7 @@
    <title>Publicar a minha musica</title>
 
     
-<script src="{% static 'jquery.js' %}"></script>
-<script src="{% static 'my.js' %}"></script>
+
 <link href={% static 'bootstrap.min.css' %} rel="stylesheet">
 
     <style>
@@ -41,7 +40,8 @@
  
    <h1 class="h3 mb-3 font-weight-normal">Preencha o formulario e publique a sua musica</h1>
    
- <p>{% if form.errors %} {{form.errors}} {% endif %}{{erro|default:"As musicas podem ser publicadas em formato de audio ou video ou audio e video Se algo falhar venha para aqui para ver e corrigir o erro"}}</p> </div>
+ <p>{% if form.errors %} {{form.errors}} {% endif %}{{erro|default:"As musicas podem ser publicadas em formato de audio ou video ou audio e video Se algo falhar venha para aqui para ver e corrigir o erro"}}</p>
+  </div>
 
   <div class="form-label-group">
    
@@ -96,21 +96,11 @@
   </div>
 
    </div>
- <p id="progressbar" style="text-align:center"></p>
-<div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-</div>
+ 
 <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
  
- <p class="mt-5 mb-3 text-muted text-center">Beat-Box Blog</p>
+ <p class="mt-5 mb-3 text-muted text-center">Beat-Box Blog </p>
 </form>
-
-<input type="hidden" id="urt" value="{{url}}">
-<input type="hidden" id="urp" value="{{url2}}">
-
 </body>
 </html>
-
-
-
 

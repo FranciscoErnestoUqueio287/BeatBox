@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView , ListView
 import base64
+from db_file_storage.storage import  DatabaseFileStorage
 from .models import *
 from .forms import *
 from django.http import HttpResponse, HttpResponseRedirect
@@ -175,10 +176,6 @@ def mainpage(request):
         e["musicas"] = getranmusics()
         return render(request,"musics.html",e)
 def userlog(request):
-    if request.COOKIES.get("boxcookie") != None:
-        c = request.COOKIES.get("boxcookie")
-        r = request.META.get("HTTP_ORIGIN")
-        return redirect(str(r)+"/myaccount/"+str(c))
     if request.method == "POST":
         if len(request.POST) > 0:
             can = cantor.objects.filter(contacto=request.POST["contacto"],password=request.POST["password"]).first()
@@ -364,9 +361,11 @@ def post_music(request,slug):
                             musi.imagem = request.FILES["imagem"]
                         if "video" in [x for x in request.FILES]:
                             musi.video=request.FILES["video"]
+                            musi.tam_video = musi.video.size
                         if "audio" in [x for x in request.FILES]:
                             musi.audio=request.FILES["audio"]
-                        musi.save()
+                            musi.tam_audio = musi.audio.size
+                        musi.save()  
                         return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
                     else:
                         y = {}
@@ -382,8 +381,10 @@ def post_music(request,slug):
                             musi.imagem = request.FILES["imagem"]
                         if "video" in [x for x in request.FILES]:
                             musi.video=request.FILES["video"]
+                            musi.tam_video = musi.video.size
                         if "audio" in [x for x in request.FILES]:
                             musi.audio=request.FILES["audio"]
+                            musi.tam_audio = musi.audio.size
                         musi.save()
                         return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
                     else:
@@ -404,7 +405,7 @@ def post_music(request,slug):
                 return render(request,"post_music.html",e)
         else:
             r = request.META.get("HTTP_HOST")
-            t = str(r)+"/myaccount/"+str(user.slug)
+            t = str(r)+"/myaccount/"+str(user.slug)+"/"
             r = str(r)+"/myaccount/"+str(user.slug)+"/post/"
             return render(request,"post_music.html",{"user":user,"url":r,'url2':t})
                 

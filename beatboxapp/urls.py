@@ -15,6 +15,7 @@ urlpatterns = [
     path("myaccount/<str:slug>/my_studios/",meus_studios,name="Meus_estudios"),
     path("myaccount/<str:slug>/",singerin,name="user_in"),
     path("myaccount/<str:slug>/my_musics/<str:pk>/",user_musica,name="ver_musica"),
+    path("myaccount/<str:slug>/post/undefined/<str:pk>/",user_musica,name="ver_musica2"),
     path("myaccount/<str:slug>/musics/<str:pr>/",seeing_especific_music_with_user,name="Ver_a_musica"),
     path("myaccount/<str:slug>/my_musics/",user_musicas,name="user_in_musicas"),
     path("criar_conta/",criarcantor,name="cria_"),
