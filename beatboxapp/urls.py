@@ -9,6 +9,7 @@ urlpatterns = [
     path("",mainpage,name="Pagina_inicial"),
     path("ajuda/<pr>/",helping_in,name="Ajuda"),
     path("ajuda/",helping,name="Ayuda"),
+    path("myaccount/<str:slug>/sair/",sair,name="Sair"),
     path("myaccount/<str:slug>/loja/<str:pk>/",minha_loja,name="Minha_loja"),
     path("myaccount/<str:slug>/studio/<str:pk>/",meu_studio,name="Meu_studio"),
     path("myaccount/<str:slug>/my_stores/",minhas_lojas,name="Minhas_lojas"),

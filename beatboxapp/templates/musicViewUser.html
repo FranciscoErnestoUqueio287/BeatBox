@@ -44,7 +44,8 @@
     
 <h1>{{music.artistas}} : {{music.titulo}}</h1>
 <br><h2>Tamanhos: Audio = {{music.tam_audio|filesizeformat}} & Video  = {{music.tam_video|filesizeformat}}</h2>
-<br> {% if music.audio|st > 0  %} <audio src="{% url 'see' %}?name={{music.audio}}" controls></audio> <br> <a class="btn btn-primary my-2"  href="{% url 'down' %}?name={{music.audio}}">Baixar audio</a> {% endif %}  {% if music.video|st > 0  %}<br> <video src="{% url 'see' %}?name={{music.video}}" controls></video> <br> <a class="btn btn-primary my-2" href="{% url 'down' %}?name={{music.video}}">Baixar video</a> {% endif %}     <p class="lead">{{music.sobre}}.</p>
+<br> {% if music.audio|st > 0  %} <audio src="{% url 'see' %}?name={{music.audio}}" controls></audio> <br> <a class="btn btn-primary my-2"  href="{% url 'down' %}?name={{music.audio}}">Baixar audio</a> {% endif %}  {% if music.video|st > 0  %}<br> <video src="{% url 'see' %}?name={{music.video}}" controls></video> <br> <a class="btn btn-primary my-2" href="{% url 'down' %}?name={{music.video}}">Baixar video</a> {% endif %}     <p class="lead">
+{{music.sobre}}<br><h3>Outros dados encontrados na musica</h3>Titulo: {{title}}<br>Artistas: {{artist}}<br>.</p>
  </div>
 </main></html>
 

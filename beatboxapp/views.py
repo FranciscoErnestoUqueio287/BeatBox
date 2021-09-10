@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView , ListView
 import base64
+import eyed3
 from db_file_storage.storage import  DatabaseFileStorage
 from .models import *
 from .forms import *
@@ -100,21 +101,26 @@ def listRand():
     al = musica.objects
     if len(al.all()) > 10:
         for x in range(100):
-            c = random.randint(1,len(al.all()))
+            c = random.randrange(1,al.all().count()+1)
             m = al.filter(id=c).first()
             if m != None:
                 if c not in cho:
                     cho.append(c)
                 
-            if len(cho) == 10:
+            if len(cho) == 30:
                 return cho
         return cho
     else:
         return [i.id for i in musica.objects.all()]
 def getranmusics():
     e = listRand()
-    if len(e) >= 10:
-        return musica.objects.filter(Q(id=e[0])|Q(id=e[1])|Q(id=e[2])|Q(id=e[3])|Q(id=e[4])|Q(id=e[5])|Q(id=e[6])|Q(id=e[7])|Q(id=e[8])|Q(id=e[9])).all()
+    if len(e) >= 30:
+        gh = ""
+        for x in range(30):
+            gh += "Q(id=e["+str(x)+"])|"
+        exec("io = musica.objects.filter("+gh[:-1]+").all()")
+        lp = locals()["io"]
+        return lp
     else:
         return musica.objects.all()
 def datat(r="Aeiou"):
@@ -186,11 +192,13 @@ def userlog(request):
                 e["error"] = "Nenhum dado  encontrado, tente novamente"
                 return render(request,"log.html",e)
             else:
-                r = request.META.get("HTTP_ORIGIN")
-                t  =redirect(str(r)+"/myaccount/"+str(can.slug))
+                t  =redirect("/myaccount/"+str(can.slug))
                 t.set_cookie("boxcookie",can.slug)
                 return t
     else:
+        d = request.COOKIES.get("boxcookie")
+        if d != None:
+            return redirect('/myaccount/'+str(d))
         return render(request,"log.html")
 def logging_data():
     return {"terms":"Ao cadastrar-se no Beat Box estás a aceitar os nossos termos e condições. Ler mais","Pass":"Palavra-passe","pass_co":"Confirme a palavra-passe","formulario":"Nesta secção podes criar conta para ter acesso as musicas que publicas","Vani":"Vantagens de publicar no Beat-Box: -Facil acesso;-Controlo das tuas musicas;-Analise de tudo e o melhor da musica ","Van_blog":"As vantagens de publicar aqui todas elas listadas","st_in":"Registar teu Studio","to_ver":"Pode ser visto por todos","lj_in":"Registar tua loja musica","mu_p":"Publicas tua musica grátis","tu_gratis":"E tudo gratuitamente","tu_ap":"Grátis","Vat":"Preencha os dados abaixos, os opcionais podes preencher se quiseres","Primeiro_nome":"Primeiro nome","Ultimo_nome":"Ultimo nome","f_is_required":"O primeiro nome é requerido","l_is_required":"O ultimo nome é requerido","EMAIL":"Email","optional":"Opcional","CONTACTO":"Contacto","contacto_error":" Requerido","valido_contacto":"Preencha usando um contacto valido","Imagem_de_face":"Imagem de face","image_req":"É preciso insirir uma imagem","link_fas":"Link para fãs","Pais":"Pais","valido_pais":"Insira um pais valido","data_nas":"Data de nsacimento","valid_data":"Insira uma data de nscimento valida","SEXO":"Sexo","masc":"Masculino","femc":"Feminino","wr_mo_you":"Escreva sobre ti para as pessoas que gostam das suas musicas","I_best":"O Beat_Box é melhor","Criar":"Registar-me"}
@@ -336,7 +344,18 @@ def user_musica(request,slug,pk):
         if l == None:
             return render(request,"404.html",{"erro":"A musica que estás a tentar acessar não existe"})
         else:
-            return render(request,"musicViewUser.html",{"user":user,"music":l,"origin":str(request.META.get("HTTP_HOST"))})
+            wanted = ["title","artist","original_artist","terms_of_use","payment_url","internet_radio_url","copyright","album","year","month","day","commercial_url","copyright_url","audio_file_url","audio_source_url","artist_url","publisher_url","second","hour","composer","minute","lyrics","comments","track_num","publisher","disc_num","album_type"]
+            jk = {"user":user,"music":l,"origin":str(request.META.get("HTTP_HOST"))}
+            er = open(str(l.artistas+l.titulo),'wb')
+            er.write(l.audio.read())
+            er.close()
+            ey = eyed3.load(str(l.artistas+l.titulo))
+            x = ey.tag
+            for b in wanted:
+                if hasattr(x,b):
+                    jk[b] = getattr(x,b)
+            print(jk)
+            return render(request,"musicViewUser.html",jk)
 def post_music(request,slug):
     user = cantor.objects.filter(slug=slug).first()
     r = request.META.get("HTTP_ORIGIN")
@@ -386,7 +405,7 @@ def post_music(request,slug):
                             musi.audio=request.FILES["audio"]
                             musi.tam_audio = musi.audio.size
                         musi.save()
-                        return HttpResponseRedirect(str(r)+"/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
+                        return redirect("/myaccount/"+str(user.slug)+"/my_musics/"+musi.slug)
                     else:
                         y = {}
                         y["error"] = "Adicione um video ou um audio"
@@ -782,3 +801,8 @@ def pro_ar(request,r):
     return render(request,"artistas.html",{"artistas":e["artistas"]})
 def termos(request):
     return render(request,"terms.html",{"terms":terms.objects.all(),"tema":"Os nossos termos e condições","nH":"Nenhum termo ou condição"})
+def sair(request,slug):
+    ca = get_object_or_404(cantor,slug=str(slug))
+    c = redirect('/myaccount/')
+    c.delete_cookie("boxcookie")
+    return c
