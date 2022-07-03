@@ -140,7 +140,7 @@ def liking(r):
             us.click()
             print("Liked/Followed")
             time.sleep(5)
-            r.close()
+            if r.current_window_handle != main: r.close()
             print("Closed Tab")
             r.switch_to.window(main)
             print("Back to main Tab")
