@@ -131,19 +131,15 @@ def liking(r):
             for x in range(10):
                 time.sleep(5)
                 try:
-                    us = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[1]/div/div/div[1]/div[1]/section/main/div/header/section/div[2]/div/div/div/span/span[1]/button/div")
+                    us = r.find_element(By.CLASS_NAME,"_aacl _aaco _aacw _aad6 _aade")
+                    #us = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[1]/div/div/div[1]/div[1]/section/main/div/header/section/div[2]/div/div/div/span/span[1]/button/div")
                     print("Followed found")
                     break;continue
-                except Exception as e:
-                    try:
-                        lq = "//*[contains(text(),'Follow')]"
-                        r.execute_scrit("function getElementByXpath(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}; getElementByXpath(%s).click();"%lq)
-                        print("Tried the script",e)
-                    except: pass
+                except Exception as e: pass
             us.click()
             print("Liked/Followed")
             time.sleep(5)
-            r.execute_script("window.close();")
+            r.close()
             print("Closed Tab")
             r.switch_to.window(main)
             print("Back to main Tab")
@@ -172,4 +168,8 @@ def tik(r):
     us1.send_keys("841236144")
     us = find_element(By.XPATH,"/html/body/div[2]/div/div[2]/div[1]/form/div[4]/div/input")
     us.send_keys("Incorrect677716@")
+    
+    
+
+
     
