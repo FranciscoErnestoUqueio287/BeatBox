@@ -51,7 +51,7 @@ def loging(r):
         time.sleep(2)
         print("Logged on Instagram")
         us.send_keys("+258842150009")
-        pa.send_keys("incorrect")
+        pa.send_keys("novapasse")
         pa.send_keys(Keys.RETURN)
         time.sleep(5)
         if "/onetap/" in r.current_url:
