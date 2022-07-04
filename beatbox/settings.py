@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'beatbox',
+    'django_cron',
     'beatboxapp',
     'db_file_storage',
 ]
@@ -112,8 +113,13 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+CRON_CLASSES = ['beatbox.cron.Start','beatboxapp.cron.Start']
 
+USE_TZ = True
+DJANGO_CRON_CACHE = 'default'
+DJANGO_CRON_LOCK_TIME = 24 * 60 * 60
+DJANGO_CRON_LOCK_BACKEND = "django_cron.backends.lock.cache.CacheLock"
+DJANGO_CRON_LOCKFILE_PATH = '/tmp'
 DEFAULT_FILE_STORAGE = "db_file_storage.storage.DatabaseFileStorage"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

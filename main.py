@@ -126,7 +126,7 @@ def liking(r):
             us.click()
             print("Ver link clicado")
             time.sleep(10)
-            time.sleep(70)
+            time.sleep(50)
             #like_but = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button/div[1]/svg"
             #follow_but = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[1]/div/div/div[1]/div[1]/section/main/div/header/section/div[2]/div/div/div/span/span[1]/button")
             r.execute_script("document.getElementsByClassName('_abn9 _abng _abni _abnn')[0].click();")

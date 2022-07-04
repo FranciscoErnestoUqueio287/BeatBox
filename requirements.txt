@@ -8,4 +8,8 @@ selenium==4.2.0
 dj_database_url==0.5.0
 eyed3==0.9.6
 selenium-stealth==1.0.6
+freezegun==0.2.8
+mock==2.0.0
+django-cron==0.6.0
+flake8==2.4.0
 

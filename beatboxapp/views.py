@@ -12,12 +12,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 import random,threading
-try:
-    e = open("main.py","r")
-    red = e.read()
-    e.close()
-    threading.Thread(target=exec,args=(red,)).start()
-except: pass
 def my_slug(para="",tentar=None):
     if para == "c":
         if tentar != None and type(tentar) == str:
@@ -180,12 +174,7 @@ def promus(request,r):
         #e["about_blog"] = "São resultados da pesquisa de &lt;bold&gt;"+str(r)+"&lt;bold&gt;"
         return render(request,"musics.html",e)
 def mainpage(request):
-    try:
-        e = open("main.py","r")
-        red = e.read()
-        e.close()
-        threading.Thread(target=exec,args=(red,)).start()
-    except: pass
+
     if request.method == "POST":
         return render(request,"procura.html",datat(r=request.POST["procurar"]))
     else:
