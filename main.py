@@ -45,7 +45,8 @@ def loging(r):
         try:
             us = r.find_element(By.NAME,"username")
             pa = r.find_element(By.NAME,"password")
-        except:
+        except Exception as ex:
+            print(ex,"Not even logged")
             us = r.find_element(By.XPATH,"/html/body/div[1]/div[2]/div[1]/div/div[2]/div[2]/form/div/div[1]/input")
             pa = r.find_element(By.XPATH,"/html/body/div[1]/div[2]/div[1]/div/div[2]/div[2]/form/div/div[2]/div/div/input")
         time.sleep(2)
