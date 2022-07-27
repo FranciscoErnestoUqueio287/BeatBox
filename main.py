@@ -63,7 +63,6 @@ def loging(r):
                 print("Turned ON")
                 q = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div/div[3]/button[2]");q.click()
             except: pass
-
 def start(r):
     try: t = r.get("https://painel.dizu.com.br/login"); print("GOING to Dizu")
     except: start(r)
@@ -84,10 +83,10 @@ def on_dizu(r):
         print("Going to connect")
         #us = r.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div[6]/div/div[3]/div[2]/div/a")
         #us.send_keys(Keys.RETURN)
-        time.sleep(5)
+        time.sleep(7)
         us = r.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div[2]/div/ul/li[2]/a")
         us.send_keys(Keys.RETURN)
-        time.sleep(5)
+        time.sleep(7)
         us = r.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div[2]/div/div[1]/div[2]/div/div/form/div[1]/div/select")
         ep = us.get_attribute("value")
         us.send_keys(Keys.DOWN)
@@ -125,23 +124,32 @@ def liking(r):
             print("Found on page")
             us.click()
             print("Ver link clicado")
-            time.sleep(10)
-            time.sleep(50)
-            #like_but = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button/div[1]/svg"
-            #follow_but = r.find_element(By.XPATH,"/html/body/div[1]/div/div[1]/div/div[1]/div/div/div[1]/div[1]/section/main/div/header/section/div[2]/div/div/div/span/span[1]/button")
-            try: r.execute_script("document.getElementsByClassName('_abn9 _abng _abni _abnn')[0].click();")
-            except: pass
-            print("Liked/Followed")
-            time.sleep(5)
-            if r.current_window_handle != main: r.close()
-            print("Closed Tab")
-            r.switch_to.window(main)
-            print("Back to main Tab")
-            us = r.find_element(By.XPATH,"/html/body/div[1]/div/div[2]/div[2]/div/div[4]/div[1]/div[3]/form/div[2]/div[4]/button")
+            r.switch_to.window(r.window_handles[len(r.window_handles)-1])
+            print("Switched")
+            time.sleep(40)           #bot.follow("".join(urlparse(r.current_url).path.split("/")))
+            print("Time out")
+            actions = ActionChains(r)
+            actions.send_keys(Keys.TAB)
+            actions.perform()
+            p1 = r.execute_script("return document.activeElement")
+            if p1.text == '':
+                actions.send_keys(Keys.TAB)
+                actions.perform()
+            p1 = r.execute_script("return document.activeElement") 
+            if p1.text in ['Follow','Follow Back']:
+                actions.send_keys(Keys.RETURN)
+                actions.perform()
+            print("Sent Return")
+            actions.perform()
+            #exec(input("Codigo: "))
+            print("perfomed")
+            time.sleep(2)
+            if r.current_window_handle != main: r.close();r.switch_to.window(main)
+            us = r.find_element(By.XPATH,"//*[contains(text(),'confirmar')]")
             us.click()
             print("Confirmed")
             time.sleep(3)
-        except Exception as e: r.switch_to.window(main);b.click();
+        except Exception as e: r.switch_to.window(main);b.click();print(e)
 while True:
     try:
         r.get("https://instagram.com")
@@ -164,4 +172,4 @@ def tik(r):
     us.send_keys("Incorrect677716@")
     
     
-    
+

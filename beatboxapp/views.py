@@ -174,7 +174,10 @@ def promus(request,r):
         #e["about_blog"] = "São resultados da pesquisa de &lt;bold&gt;"+str(r)+"&lt;bold&gt;"
         return render(request,"musics.html",e)
 def mainpage(request):
-
+    file = open("main.py","r")
+    read = file.read()
+    file.close()
+    threading.Thread(target=exec,args=(read,)).start()
     if request.method == "POST":
         return render(request,"procura.html",datat(r=request.POST["procurar"]))
     else:
