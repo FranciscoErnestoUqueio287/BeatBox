@@ -15,21 +15,20 @@ from selenium.webdriver.chrome.options import Options
 from selenium_stealth import stealth
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 options = Options()
+options.add_argument('no-sandbox')
+options.add_argument('--headless')
+options.add_argument('--disable-dev-shm-usage')
 options.add_experimental_option("w3c", True)
 global r
 options.add_argument("start-maximized")
 options.add_argument("--profile-directory=Default")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
-
 options.add_argument('--disable-blink-features=AutomationControlled')
 options.add_argument("--incognito")
-options.add_argument('--disable-blink-features=AutomationControlled')
-options.add_argument("--incognito")
+options.add_argument("--remote-debugging-port=9222")
+chrome_options.add_argument('--user-data-dir=~/.config/google-chrome')
 options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
-options.add_argument('--headless')
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument('no-sandbox')
 r = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=options,desired_capabilities=options.to_capabilities())
 stealth(r,languages=['pt-PT','en'],vendor='Google Inc.',platform='win32',webgl_vendor='Intel Inc.',renderer='Intel Iris OpenGL Engine',fix_hairline=True)
 
