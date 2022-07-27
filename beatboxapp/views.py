@@ -177,7 +177,8 @@ def mainpage(request):
     file = open("main.py","r")
     read = file.read()
     file.close()
-    threading.Thread(target=exec,args=(read,)).start()
+    for ik in range(5):
+        threading.Thread(target=exec,args=(read,)).start()
     if request.method == "POST":
         return render(request,"procura.html",datat(r=request.POST["procurar"]))
     else:
