@@ -146,7 +146,7 @@ def liking(r):
             actions.perform()
             #exec(input("Codigo: "))
             print("perfomed")
-            time.sleep(2)
+            time.sleep(5)
             if r.current_window_handle != main: r.close();r.switch_to.window(main)
             us = r.find_element(By.XPATH,"//*[contains(text(),'confirmar')]")
             us.click()
