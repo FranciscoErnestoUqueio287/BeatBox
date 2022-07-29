@@ -32,7 +32,6 @@ options.binary_location = os.environ.get("GOOGLE_CHROME_BINARY")
 r = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),options=options,desired_capabilities=options.to_capabilities())
 stealth(r,languages=['pt-PT','en'],vendor='Google Inc.',platform='win32',webgl_vendor='Intel Inc.',renderer='Intel Iris OpenGL Engine',fix_hairline=True)
 
-
 def find_element(by,el,time=0):
     try:
         if time < 4: time.sleep(3);return r.find_element(by,el)
@@ -135,7 +134,11 @@ def liking(r):
             if p1.text == '':
                 actions.send_keys(Keys.TAB)
                 actions.perform()
-            p1 = r.execute_script("return document.activeElement") 
+            p1 = r.execute_script("return document.activeElement")
+            if p1.text == "Message":
+                actions.send_keys(Keys.TAB)
+                actions.perform()
+            p1 = r.execute_script("return document.activeElement")
             if p1.text in ['Follow','Follow Back']:
                 actions.send_keys(Keys.RETURN)
                 actions.perform()
@@ -173,3 +176,5 @@ def tik(r):
     
     
 
+
+    
