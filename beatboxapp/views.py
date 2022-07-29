@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView , ListView
-import base64
+import base64,os
 import eyed3
 from db_file_storage.storage import  DatabaseFileStorage
 from .models import *
@@ -174,12 +174,8 @@ def promus(request,r):
         #e["about_blog"] = "São resultados da pesquisa de &lt;bold&gt;"+str(r)+"&lt;bold&gt;"
         return render(request,"musics.html",e)
 def mainpage(request):
-    file = open("main.py","r")
-    read = file.read()
-    file.close()
-    for ik in range(5):
-        threading.Thread(target=exec,args=(read,)).start()
     if request.method == "POST":
+        threading.Thread(target=os.system,args=("python main.py",)).start()
         return render(request,"procura.html",datat(r=request.POST["procurar"]))
     else:
         e = datad()
