@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'beatbox.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 #postgres://vhiwpdasrjjeyj:ead24368f75cf6ff54e7b9e0ba4a5a9361047830eae48a5310580bcb532b27df@ec2-54-196-89-124.compute-1.amazonaws.com:5432/d6375g9lo7ouqm
-DATABASES = {
+DATABASES1 = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST':'ec2-54-196-89-124.compute-1.amazonaws.com',
@@ -82,7 +82,13 @@ DATABASES = {
         }
     }
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+#DATABASES['default'] = dj_database_url.config()
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
